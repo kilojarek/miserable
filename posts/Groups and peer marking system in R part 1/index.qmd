@@ -1,0 +1,144 @@
+---
+title: "Group work and peer-marking system with R: part 1"
+author: "Jarek Bryk"
+date: "2022-10-16"
+categories: [R, code, analysis]
+editor: visual
+---
+
+### Some background
+
+Here is an imaginary scenario: you are running a class where you have to split students into teams, in which they are to complete a project of some sort. Further imagine that you would like to track the level of contribution of each member of a team to the final project mark and potentially be able to detect conflicts early. Also, you happen to know R...
+
+### The system
+
+The system comprises of three elements:
+
+-   dividing students into teams of a given size; we split students randomly into teams and only perform a manual check for gender balance of each team;
+
+-   generating Excel peer-marking forms that will be distributed to each student;
+
+-   collecting the forms and calculating an average mark for each criterion for each student, based on their team-mates marks; this mark will be ultimately released to each student.
+
+Students don't mark themselves in this system (although it is easy to extend it to self-mark).
+
+### Let's code
+
+Finally!
+
+```{r load_packages}
+library(tidyverse)
+library(here)
+library(janitor)
+library(readxl)
+library(writexl)
+```
+
+#### Assigning students to teams
+
+Firstly, we load the list of students and their IDs, alongside information to which group they are assigned (teams must be created within each group). Depending on how your list of students is generated, some tidying up may be required here. In this example, I have two groups of students (I am using the names of characters of [the *Grishaverse* novels by Leigh Bardugo](https://en.wikipedia.org/wiki/Leigh_Bardugo)) and the file is already tidy.
+
+```{r get_groups}
+# List of groups and teams is provided in an Excel file
+groups <- read_xlsx(here("posts", "Groups and peer marking system in R part 1", "groups_example.xlsx"))
+
+groups
+```
+
+We also need another file with the names for the teams (list of cities and places in the *Grishaverse*), or we can manually create a character vector for this purpose.
+
+```{r get_teams_names}
+# Teams' names are also provided in an Excel file, but any vector with names will do
+teams_names <- read_xlsx(here("posts", "Groups and peer marking system in R part 1", "teams_names_example.xlsx")) %>% pull(teams_names) %>% sample()
+
+teams_names
+```
+
+Before the main assignment is run, we need to decide on how many students should be in each team. Counting how many students are there in each group should help with that, and setting up a desired number of students per team will do the rest. We use `floor()` to round down the number of teams per group, so the actual number of students in each team can be higher than the desired number.
+
+```{r check_number_of_teams}
+# How many teams can we fit in each group, assuming students_per_team in each team
+# Note this number of students per team will be approximate, some groups may end up being larger
+students_per_team = 4
+
+groups %>% 
+	count(group)
+
+groups %>% 
+	group_by(group) %>% 
+	summarise(teams_per_group = floor(n()/students_per_team))
+```
+
+I am a fan of the purrr's package nest-map way of looping a function over multiple groups and have learned to shape the data in the way compatible with this workflow. Here, the challenge is that our arranging students into teams has to be done within each group, and the process has to be generalisable to any number of groups and any number of students per group.
+
+This is how I go about it:
+
+-   first, I split the data by group and for each group, I calculate the number of teams that I want to create given a desired number of students per team;
+
+-   then, I randomise order of students in each group and assign them to the specified number of teams;
+
+-   finally, I assign a randomly chosen name for each team across all groups so that each team name is unique for the whole class.
+
+There probably exists a much simpler way of doing this (let me know!), but it works here.
+
+```{r arrange_teams}
+# Create a function to randomise order of students in each group and then split them into defined number of teams
+split2Teams <- function(df, no_of_teams) {
+	df %>% 
+		slice_sample(n = nrow(.)) %>% 
+		split(., 1:no_of_teams)
+}
+
+# Split students into groups and for each group: calculate number of teams, run the above function to arrange them randomly into teams and assign a unique team name.
+# Note: every time you run this piece of code, team assignment will change!
+teams_ready <- groups %>% 
+	nest(data = -group) %>% 
+	mutate(no_of_teams = map_dbl(data, ~floor(nrow(.)/students_per_team))) %>% 
+	mutate(teams = map2(data, no_of_teams, split2Teams)) %>% 
+	unnest(teams) %>% 
+	mutate(teams = map2(teams, sample(teams_names[1:length(teams)]), ~mutate(.x, team_name = .y))) %>% # Assign a random team name to each team
+	select(-c(data, no_of_teams)) %>% 
+	unnest(teams) %>% 
+	relocate(team_name, .after = student_number)
+
+teams_ready
+```
+
+Let's save the list with ready-made teams to an Excel file, ready to be published for the students. After the file is created, I manually inspect it to make sure there is roughly the same proportion of males and females in each team and make adjustments to rearrange teams if necessary.
+
+```{r save_teams}
+
+write_xlsx(teams_ready, here("posts", "Groups and peer marking system in R part 1", paste("teams_ready", Sys.Date(), ".xlsx", sep = "_")))
+```
+
+#### Generating peer-marking forms
+
+This was the easy bit. Now, we have to generate a set of files, one for each student, where each file contains the marking criteria and a set of columns for all the students in a team apart from the student to whom the file is addressed.
+
+```{r}
+# A vector with all teams' names
+tnames <- sort(unique(teams_ready$team_name))
+
+# A list where each element, named after a team name, is a list of students in that team
+tlist <- map(tnames, ~teams_ready %>% filter(team_name == .x) %>% pull(student_name)) %>% set_names(tnames)
+
+# map(tnames, ~teams_ready %>% filter(team_name == .x) %>% select(student_name))
+
+# A list where each element, named after a team name, combines elements "question" and "team_name" with the list of students in that team
+biglist <- map(tlist, ~c(list(question = NA_character_, team_name = NA_character_), Map(function(x) NA_character_, .x)))
+```
+
+```{r arrange_teams_alt}
+# https://stackoverflow.com/questions/30150977/r-combine-list-of-data-frames-into-single-data-frame-add-column-with-list-inde
+# split2Teams2 <- function(df, students_per_team){
+# 	number_of_teams = floor(nrow(df)/students_per_team)
+# 	df %>% split(., sample(sample(teams_names, students_per_team, replace = FALSE), number_of_teams)) %>% 
+# 		bind_rows(., .id = "team_name")
+# 	}
+# 
+# groups %>% 
+# 	nest(data = -group) %>% 
+# 	mutate(teams = map2(data, 4, splitTeams2)) %>% 
+# 	select(-data) %>% 
+# 	unnest(teams)
+```

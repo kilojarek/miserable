@@ -1,0 +1,44 @@
+---
+title: "Undergraduate group-based data analysis project with R: how we do it"
+author: "Jarek Bryk"
+date: "2022-09-18"
+categories: [teaching and learning, R]
+editor: visual
+---
+
+### Everybody should learn to use R...
+
+...during their undergraduate degree in life sciences.
+
+In our case, the students, who attend the classes in 2 groups, in the first 5-6 week are individually learning the basics of data analysis with R. Then the students are split into 5-6-person teams to complete a group-based project, which is an open-ended analysis of a complex dataset. We only work in a Windows-based environment and we do not use version control.
+
+For more details about what we do in these clasess, see my other post.
+
+The teams' analyses are marked based on na R Notebook file from which we could reproduce their analyses.
+
+To the vast majority of the students, this is their first contact with programming of any sort, and the first contact with concepts of file system and paths (speaking from experience, it looks like these concepts are black magic to almost anyone born after 1990). This excludes any chance of using, for example, version control on their code submissions, which would allow direct quantification of individual students' contributions to the codebase. In addition, we do not expect every student in the team to contribute equally to all elements of the assignment; some division of labour will occur, either naturally or because some students would avoid doing coding or prefer other elements of the project.
+
+But the system described below is agnostic to the topic, number of groups or teams or peer-marking criteria.
+
+We have two independent groups of students and each group is split into several teams of 4-6 students. The peer marking system has five criteria, based on which each student *anonymously* marks *other* students in their team. The peer-marking is run twice in a term, once three weeks after the beginning of the group work and the second time in the final week of the class.
+
+### Marking criteria
+
+| Marking criteria                                                                           |
+|------------------------------------------------------------------------|
+| Ability to provide direction for the group activities (leadership)                         |
+| Involvement in the execution of the project work (developing R code)                       |
+| Involvement in the presentation of group work                                              |
+| Ability to suggest solutions and other approaches to group or work challenges (creativity) |
+| Ability to work well with and support other members of the group                           |
+
+| Peer mark | Guidance                                                                                                                                                                                                       |
+|------------|------------------------------------------------------------|
+| 0         | Student did not contribute at all; was missing most of the time; did not complete assigned tasks; team's results would not change had this person not been a member of the team                                |
+| 1         | Student contributed only minimally; attendance and task completion was low; team's results would change only slightly had this person not been a member of the team                                            |
+| 2         | At least one of the elements (student contributions/attendance/task completion), including the contributions, was adequate                                                                                     |
+| 3         | At least two of the elements (student contributions/attendance/task completion), including the contributions, were good                                                                                        |
+| 4         | Student made substantial contributions to the team's results and maintained very good attendance and task completion                                                                                           |
+| 5         | Student made significant and substantial contributions; the team's results would be noticeably worse without them; all other responsibilities were completed (i.e. attended all meetings, completed all tasks) |
+
+: Table with peer-marking criteria
