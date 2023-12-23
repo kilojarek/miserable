@@ -3,7 +3,7 @@ title: "R, with a little help from a few friends"
 author: "Jarek Bryk"
 date: "2023-06-28"
 categories: [teaching and learning, R, northernBUG]
-editor: visual
+editor: source
 ---
 
 ### My presentation at the Northern BUG
