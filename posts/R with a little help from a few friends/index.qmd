@@ -31,6 +31,8 @@ I usually set up a self-explanatory three-folder structure within any project: f
 `here()` is a simple function that combines strings into paths. The magic bit is that it does so _relative to the project location_. So you don't have to remember, or type, that your data is located in `/Users/jarek/one_folder/another_folder/folder_hell/my_project_folder/data/my_data.csv`. If you use projects + `here()`, it understands where your project is and creates the path _relative_ to where it is on your hard drive. Like so:
 
 ```{r}
+library(here)
+
 # Calling the function with no arguments returns what here understands as the project folder location
 here()
 
