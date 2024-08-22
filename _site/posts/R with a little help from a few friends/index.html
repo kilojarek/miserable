@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jarek Bryk">
-<meta name="dcterms.date" content="2023-06-28">
+<meta name="dcterms.date" content="2024-08-22">
 
 <title>R, with a little help from a few friends – miserable uncertainty</title>
 <style>
@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://scicomm.xyz/@jarek"> <i class="bi bi-mastodon" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">June 28, 2023</p>
+        <p class="date">August 22, 2024</p>
       </div>
     </div>
     
@@ -192,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="my-presentation-at-the-northern-bug" class="level3">
 <h3 class="anchored" data-anchor-id="my-presentation-at-the-northern-bug">My presentation at the Northern BUG</h3>
-<p>In January 2023, I gave a short talk at the 8th meeting of the <a href="https://northernbug.github.io/">Northern Bioinformatics User Group</a> (nBUG for short), which is an informal network of computational biologists and users or bioinformatics services in the (loosely defined) north of England. If you haven’t heard about us and are in range of a reasonable commute, please come to one of our next meetings (we have three one-day, single-track meetings per year), it’s really nice :-).</p>
+<p>In January 2023 I gave a short talk at the 8th meeting of the <a href="https://northernbug.github.io/">Northern Bioinformatics User Group</a> (nBUG for short), an informal network of computational biologists and users or bioinformatics services in the (loosely defined) north of England. If you haven’t heard about us and are in range of a reasonable commute, please come to one of our next meetings (we have three one-day, single-track meetings per year), it’s really nice :-).</p>
 <p>My talk wasn’t actually that short, as I ran over time and could not finish it properly. My excuse is that I was juggling a presentation (with slides), a live demo in R Studio <em>and</em> sharing my screen over Teams, over a single projector. This makes it a very good reason to write my short presentation as a blog post.</p>
 </section>
 <section id="who-may-find-this-useful" class="level3">
@@ -204,10 +204,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>He’s not wrong ;-). Photo by Andy Mason.</figcaption>
 </figure>
 </div>
-<p>Here we go.</p>
 </section>
 <section id="use-projects-here-rmdqmd-for-everything" class="level3">
-<h3 class="anchored" data-anchor-id="use-projects-here-rmdqmd-for-everything">1. Use projects + here + Rmd/Qmd for everything</h3>
+<h3 class="anchored" data-anchor-id="use-projects-here-rmdqmd-for-everything">1. Use projects + here + Rmd/qmd for everything</h3>
 <p>This advice is number one for a reason - projects will instantly make your work easier, because they will force you to organise your files into a consistent structure. And if you combine it with <a href="https://here.r-lib.org">the package <code>here</code></a>, you will get extra benefits of making your code simpler and, most importantly, portable.</p>
 <p>I usually set up a self-explanatory three-folder structure within any project: folders <code>code</code>, <code>data</code>, and <code>output</code>. You can make it as complicated as you want (and there are packages that will build a default structure for you - see also advice #2 below), but for 70% of my needs, this is sufficient (and 100% for everything I teach R with). Any self-contained idea, no matter how small, should be in a separate project.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -216,19 +215,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>A consistent project structure will make your life easier</figcaption>
 </figure>
 </div>
-<p><code>here()</code> is a simple function that combines strings into paths. The magic bit is that it does so <em>relative to the project location</em>. So you don’t have to remember, or type, that your data is located in <code>/Users/jarek/one_folder/another_folder/folder_hell/my_project_folder/data/my_data.csv</code>. If you use projects + <code>here()</code>, it understands where your project is and creates the path <em>relative</em> to where it is on your hard drive. Like so:</p>
+<p><code>here()</code> is a simple function that combines strings into paths. The magic bit is that it does so <em>relative to the project location</em>. So you don’t have to remember, or type, that your data is located in <code>/one_folder/another_folder/folder_hell/my_project_folder/data/my_data.csv</code>. If you use projects + <code>here()</code>, it understands where your project is and creates the path <em>relative</em> to it on your hard drive. Like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /Users/jarek/Sites/miserable</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling the function with no arguments returns what here understands as the project folder location</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling the function with no arguments returns what here understands </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># as the project folder location</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "/Users/jarek/Sites/miserable"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling it with arguments returns path to folders and files relative to the project folder location</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling it with arguments returns path to folders and files relative </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to the project folder location</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"my_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "/Users/jarek/Sites/miserable/data/my_data.csv"</code></pre>
 </div>
@@ -236,7 +235,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It doesn’t matter if you are on a Linux machine and your collaborator on a Windows, as long as you use the same project structure and <code>here()</code>, wherever your code would refer to files in the project folder, it will work on both machines with no changes.</p>
 <section id="short-rant-about-file-system" class="level4">
 <h4 class="anchored" data-anchor-id="short-rant-about-file-system">Short rant about file system</h4>
-<p>The lack of familiarity with the concepts of a filesystem and directory trees is by far the biggest issue for the students who begin working with R. This is compounded by Microsoft’s push to use OneDrive as a main storage space on Windows machines without making it explicit in the user interface. Students tend to download the Rmd/qmd files from our virtual learing environment (VLE) platform and open them directly from the downloads folder. This opens RStudio but confuses <code>here()</code>, which shows the downloads folder as the working directory, making all relative links in project files broken. And it is not obvious what is going on, because RStudio by default opens on the last used project, so the interface shows the “correct” project name and the file system viewer in the bottom right panel shows the “corect” project location on the hard drive. The correct behaviour is to move downloaded files to the appropriate place in the project folder (e.g.&nbsp;<code>code</code>) and then open the project itself in RStudio, but this is also tricky for the students, who often struggle to answer question “where is your project folder?” and locate it with File Explorer (also, “what is File Explorer?”).</p>
+<p>The lack of familiarity with the concepts of a filesystem and directory trees is by far the biggest issue for the students who begin working with R. I blame iOS and smartphones to allow people to remain ignorant about the organisation of a computer system, but this issue is particularly compounded by Microsoft’s push to use OneDrive as a main storage space without making it explicit in the user interface.</p>
+<p>Students tend to download the Rmd/qmd files and open them directly from the downloads folder. This opens RStudio but confuses <code>here()</code>, which shows the downloads folder as the project directory, making all relative links broken. Moreover, RStudio by default opens on the last used project, so its interface shows the “correct” project name and the file system viewer in the bottom right panel shows the “correct” project location on the hard drive.</p>
+<p>The downloaded file needs to be moved to the appropriate place in the project folder (e.g.&nbsp;<code>code</code>) first, followed by openeing the project itself in RStudio, but this is also tricky for some students, who often struggle to answer the question “where is your project folder?” and locate it with File Explorer (also, “what is File Explorer?”).</p>
+<p>I imagine that the better functionality would be for RStudio to recognise that it is being opened by an “orphan” Rmd/qmd file and ask the user which project does she want it to be opened in (and then <em>move</em> the file to the project folder and open it from there or create a new project at a location specified by the user).</p>
 </section>
 </section>
 <section id="name-things-well" class="level3">
@@ -244,8 +246,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>There is nothing that I can say about naming things that Jenny Bryan and Danielle Navarro haven’t already said much better. Check their presentations, pick one of the suggested approaches to naming and <em>stick to it</em>. Sticking to it is more important than the exact approach that you choose.</p>
 <ul>
 <li><a href="https://djnavarro.net/slides-project-structure/#1">Project Structure, a presentation by Danielle Navarro</a></li>
-<li>[Naming, a presentation by Jenny Bryan][https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf]</li>
+<li><a href="https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf">Naming, a presentation by Jenny Bryan</a></li>
 </ul>
+<p>A quick question: can you suggest a better way of naming my project folder in the image in #1 above?</p>
 </section>
 <section id="five-or-six-packages-that-will-make-your-life-much-easier" class="level3">
 <h3 class="anchored" data-anchor-id="five-or-six-packages-that-will-make-your-life-much-easier">3. Five or six packages that will make your life <em>much</em> easier</h3>
@@ -259,77 +262,392 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>What datapasta does. Excellent name, too.</figcaption>
 </figure>
 </div>
-<p>I use it quite often, it’s great to create dummy data to test various functions or try to understand what’s going on with my code.</p>
+<p>One of my most common uses of it is to create dummy data to test various functions or try to understand what’s going on with my code.</p>
 <ul>
 <li><p><a href="https://sfirke.github.io/janitor/">janitor</a> by Sam Firke. Probably the most popular of the basic data wrangling packages, with its blockbuster function <code>clean_names()</code>, which standardises messy column names by substituting spaces, normalising type cases and protecting from having names starting with a number or other forbidden symbol. But it also has a function <code>get_dupes()</code> that identifies duplicated rows/variables in the data and a function <code>tabyl()</code> that prettifies tables, including adding rows with totals or formatting the tables as inputs to statistical tests such as χ<sup>2</sup>.</p></li>
-<li><p><a href="https://rpkgs.datanovia.com/rstatix/">rstatix</a> by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (incouding outputting test results as tibbles) and b) it provides function <code>get_summary_stats()</code> that calculates basic and not-so-basic descriptive statistics (including operations on groups). Here is an example:</p></li>
+<li><p><a href="https://rpkgs.datanovia.com/rstatix/">rstatix</a> by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (including outputting test results as tibbles) and b) it provides function <code>get_summary_stats()</code> that calculates basic and not-so-basic descriptive statistics, also on groupped data. Here is an example:</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Is there a difference in displacement volume between engines with different number of cylinders?</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that there are more than two groups of cylinder counts (4, 6 and 8)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t_test</span>(disp <span class="sc">~</span> cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">.y.</th>
+<th style="text-align: left;">group1</th>
+<th style="text-align: left;">group2</th>
+<th style="text-align: right;">n1</th>
+<th style="text-align: right;">n2</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: right;">p.adj</th>
+<th style="text-align: left;">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">disp</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">-4.422972</td>
+<td style="text-align: right;">9.224964</td>
+<td style="text-align: right;">2.0e-03</td>
+<td style="text-align: right;">2.0e-03</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">disp</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">-12.496797</td>
+<td style="text-align: right;">17.796601</td>
+<td style="text-align: right;">0.0e+00</td>
+<td style="text-align: right;">0.0e+00</td>
+<td style="text-align: left;">****</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">disp</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">-7.081509</td>
+<td style="text-align: right;">17.930865</td>
+<td style="text-align: right;">1.4e-06</td>
+<td style="text-align: right;">2.7e-06</td>
+<td style="text-align: left;">****</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'rstatix'
-
-The following object is masked from 'package:stats':
-
-    filter</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t_test</span>(disp<span class="sc">~</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 10
-  .y.   group1 group2    n1    n2 statistic    df        p    p.adj p.adj.signif
-* &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       
-1 disp  4      6         11     7     -4.42  9.22 2   e- 3 2   e- 3 **          
-2 disp  4      8         11    14    -12.5  17.8  3.03e-10 9.09e-10 ****        
-3 disp  6      8          7    14     -7.08 17.9  1.36e- 6 2.72e- 6 ****        </code></pre>
-</div>
-</div>
-<p>If your categorical variable contains more than two groups, <code>t_test</code> will automatically perform all pairwise tests.</p>
-<p>Here is another:</p>
+<p>If your categorical variable contains more than two groups, <code>t_test</code> will automatically perform all pairwise tests between them.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(disp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 14
-    cyl variable     n   min   max median    q1    q3   iqr   mad  mean    sd
-  &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     4 disp        11  71.1  147.   108   78.8  121.  41.8  43.0  105.  26.9
-2     6 disp         7 145    258    168. 160    196.  36.3  11.3  183.  41.6
-3     8 disp        14 276.   472    350. 302.   390   88.2  73.4  353.  67.8
-# ℹ 2 more variables: se &lt;dbl&gt;, ci &lt;dbl&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Quick summary statistics of engine displacement volumes calculated on data grouped by cylinder count</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(disp) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">cyl</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">median</th>
+<th style="text-align: right;">q1</th>
+<th style="text-align: right;">q3</th>
+<th style="text-align: right;">iqr</th>
+<th style="text-align: right;">mad</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">disp</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">71.1</td>
+<td style="text-align: right;">146.7</td>
+<td style="text-align: right;">108.0</td>
+<td style="text-align: right;">78.85</td>
+<td style="text-align: right;">120.65</td>
+<td style="text-align: right;">41.80</td>
+<td style="text-align: right;">42.995</td>
+<td style="text-align: right;">105.136</td>
+<td style="text-align: right;">26.872</td>
+<td style="text-align: right;">8.102</td>
+<td style="text-align: right;">18.053</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">disp</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">145.0</td>
+<td style="text-align: right;">258.0</td>
+<td style="text-align: right;">167.6</td>
+<td style="text-align: right;">160.00</td>
+<td style="text-align: right;">196.30</td>
+<td style="text-align: right;">36.30</td>
+<td style="text-align: right;">11.268</td>
+<td style="text-align: right;">183.314</td>
+<td style="text-align: right;">41.562</td>
+<td style="text-align: right;">15.709</td>
+<td style="text-align: right;">38.439</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">disp</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">275.8</td>
+<td style="text-align: right;">472.0</td>
+<td style="text-align: right;">350.5</td>
+<td style="text-align: right;">301.75</td>
+<td style="text-align: right;">390.00</td>
+<td style="text-align: right;">88.25</td>
+<td style="text-align: right;">73.389</td>
+<td style="text-align: right;">353.100</td>
+<td style="text-align: right;">67.771</td>
+<td style="text-align: right;">18.113</td>
+<td style="text-align: right;">39.130</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>Do check parameter <code>type =</code> for options of what descriptive stats you want to include in the output of <code>get_summary_stats()</code>.</p>
-<p>The only (slight) concern about <code>rstatix</code> is its pace of development. Only one issue was patched in the last 1.5 years and at least some of the wrappers do not yet work (I am aware of <code>chisq_test()</code> which doesn’t yet seem to be pipe-compatible). But other than that, it’s great.</p>
+<p>Do check parameter <code>type =</code> for options of what descriptive statistics you want to include in the output of <code>get_summary_stats()</code>.</p>
+<p>The only (slight) concern about <code>rstatix</code> is its pace of development. Only one issue was patched in the last 1.5 years and at least some of the wrappers do not yet work (e.g.&nbsp;<code>chisq_test()</code> is not pipe-compatible). But other than that <code>rstatix</code> is great.</p>
 <ul>
-<li><p><a href="https://broom.tidymodels.org/index.html">broom</a> by David Robinson <em>et al.</em> is another of the “prettifying” packages, this time for statistical model outputs. Essentially, it turns output from <code>lm()</code> (and 100+ other models) into a tidy tabular format. It is also able to add extra columns with residuals and predicted values from the model to the original data. It is now part of the <code>tidymodels</code> approach.</p></li>
-<li><p><a href="https://forcats.tidyverse.org">forcats</a> by Hadley Wickham. It is a part of the <code>tidyverse</code> metapackage and is meant to facilitate handling of categorical variables. It is particularly useful for ordering these variables and for grouping them. For example, you can plot only the top three categories in your data (lumping the rest into the “Other” category) with <code>fct_lump()</code> and put the values in decreasing order by median of another variable with <code>fct_reorder()</code>.</p></li>
+<li><a href="https://broom.tidymodels.org/index.html">broom</a> by David Robinson <em>et al.</em> is another of the “prettifying” packages, this time for statistical model outputs. Essentially, it turns output from <code>lm()</code> (and 100+ other models) into a tidy tabular format. It is also able to add extra columns with residuals and predicted values from the model to the original data. It is now part of the <code>tidymodels</code> approach.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cut =</span> <span class="fu">fct_lump</span>(cut, <span class="dv">3</span>), <span class="co"># Group categories outside of top 3 into "Other"</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cut =</span> <span class="fu">fct_reorder</span>(cut, price, median, <span class="at">.desc =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># Reorder categories of diamond cut by median of their price, in decreasing order</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Relationship between engine displacement volume and fuel efficiency</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Classic output from lm</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp, data = mtcars)
+
+Coefficients:
+(Intercept)         disp  
+   29.59985     -0.04122  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.8922 -2.2022 -0.9631  1.6272  7.2305 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***
+disp        -0.041215   0.004712  -8.747 9.38e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.251 on 30 degrees of freedom
+Multiple R-squared:  0.7183,    Adjusted R-squared:  0.709 
+F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And here is the same model presented with broom</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">29.5998548</td>
+<td style="text-align: right;">1.2297195</td>
+<td style="text-align: right;">24.070411</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">disp</td>
+<td style="text-align: right;">-0.0412151</td>
+<td style="text-align: right;">0.0047118</td>
+<td style="text-align: right;">-8.747151</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And a tidy table with residuals and fitted values (etc.)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    broom<span class="sc">::</span><span class="fu">augment</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">.rownames</th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">disp</th>
+<th style="text-align: right;">.fitted</th>
+<th style="text-align: right;">.resid</th>
+<th style="text-align: right;">.hat</th>
+<th style="text-align: right;">.sigma</th>
+<th style="text-align: right;">.cooksd</th>
+<th style="text-align: right;">.std.resid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mazda RX4</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">23.00544</td>
+<td style="text-align: right;">-2.005436</td>
+<td style="text-align: right;">0.0417535</td>
+<td style="text-align: right;">3.285085</td>
+<td style="text-align: right;">0.0086491</td>
+<td style="text-align: right;">-0.6300752</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mazda RX4 Wag</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">23.00544</td>
+<td style="text-align: right;">-2.005436</td>
+<td style="text-align: right;">0.0417535</td>
+<td style="text-align: right;">3.285085</td>
+<td style="text-align: right;">0.0086491</td>
+<td style="text-align: right;">-0.6300752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Datsun 710</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">25.14862</td>
+<td style="text-align: right;">-2.348622</td>
+<td style="text-align: right;">0.0628778</td>
+<td style="text-align: right;">3.276208</td>
+<td style="text-align: right;">0.0186786</td>
+<td style="text-align: right;">-0.7461691</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hornet 4 Drive</td>
+<td style="text-align: right;">21.4</td>
+<td style="text-align: right;">258</td>
+<td style="text-align: right;">18.96635</td>
+<td style="text-align: right;">2.433646</td>
+<td style="text-align: right;">0.0328126</td>
+<td style="text-align: right;">3.274958</td>
+<td style="text-align: right;">0.0098254</td>
+<td style="text-align: right;">0.7610697</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hornet Sportabout</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">14.76241</td>
+<td style="text-align: right;">3.937588</td>
+<td style="text-align: right;">0.0663474</td>
+<td style="text-align: right;">3.219297</td>
+<td style="text-align: right;">0.0558121</td>
+<td style="text-align: right;">1.2533143</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valiant</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">20.32645</td>
+<td style="text-align: right;">-2.226453</td>
+<td style="text-align: right;">0.0313188</td>
+<td style="text-align: right;">3.280251</td>
+<td style="text-align: right;">0.0078250</td>
+<td style="text-align: right;">-0.6957374</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><a href="https://forcats.tidyverse.org">forcats</a> by Hadley Wickham. It is a part of the <code>tidyverse</code> metapackage and is meant to facilitate handling of categorical variables. It is particularly useful for ordering these variables and for grouping them. For example, you can plot only the top three categories in your data (lumping the rest into the “Other” category) with <code>fct_lump()</code> and put the values in decreasing order by median of another variable with <code>fct_reorder()</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cut =</span> <span class="fu">fct_lump</span>(cut, <span class="dv">3</span>), <span class="co"># Group categories outside of top 3 into "Other"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cut =</span> <span class="fu">fct_reorder</span>(cut, price, median, <span class="at">.desc =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># Reorder categories of diamond cut by median of their price, in decreasing order</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">outliers =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -338,13 +656,110 @@ The following object is masked from 'package:stats':
 <section id="know-your-interface" class="level3">
 <h3 class="anchored" data-anchor-id="know-your-interface">4. Know your interface</h3>
 <p>Spend some time on learning the interface of RStudio and force yourself to use its features until they become second nature. In the simplest case, pick a good colour theme in settings, add coloured lines to indicate tabs (and matching colours for brackets), and a good typeface. Uncheck the default options to save history and environment - and make sure you can reproduce your entire analysis from your Rmd/qmd document.</p>
-<p>Then learn the basic keyboard shortcuts (Option-Shift-K shows all shortcuts, for Windows just replace Option with Alt and Command with Windows key): - insert new chunk (Control-Option-I) - insert pipe symbol (Option–) - run current line/run current chunk (Control-Enter/Control-Shift-Enter) - switch between panes and expand them to full screen (Control-Shift-1 for the source panel, etc.. Press again to expand.) - move lines of code up/down (Option-↑ or ↓)</p>
-<p>Finally, learn to use these: - multi-line cursors (Control-Option-↑ or ↓) - rename-in-scope (Control-Option-Shift-M) - multi-file find-and-replace (Shift-Command-F): you need to find stuff first, then toggle Replace switch</p>
-<p>Good people at Appsilon have compiled those and many others into a nice gif-torial: RStudio IDE Tips And Tricks - Shortcuts You Must Know <a href="https://www.appsilon.com/post/r-studio-shortcuts-and-tips-2">Part 1</a> and <a href="https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2">Part 2</a>.</p>
+<p>Then learn the basic keyboard shortcuts (Option-Shift-K shows all shortcuts, for Windows just replace Option with Alt and Command with Windows key):</p>
+<ul>
+<li>insert new chunk (Control-Option-I)</li>
+<li>insert pipe symbol (Option–)</li>
+<li>run current line/run current chunk (Control-Enter/Control-Shift-Enter)</li>
+<li>switch between panes and expand them to full screen (Control-Shift-1 for the source panel, etc.. Press again to expand.)</li>
+<li>move lines of code up/down (Option-↑ or ↓)</li>
+</ul>
+<p>Finally, learn to use these:</p>
+<ul>
+<li>multi-line cursors (Control-Option-↑ or ↓)</li>
+<li>rename-in-scope (Control-Option-Shift-M)</li>
+<li>multi-file find-and-replace (Shift-Command-F): you need to find stuff first, then toggle Replace switch</li>
+</ul>
+<p>Good people at Appsilon have compiled these and many others into a nice gif-torial: <a href="https://www.appsilon.com/post/r-studio-shortcuts-and-tips-2">RStudio IDE Tips And Tricks - Shortcuts You Must Know Part 1</a> and <a href="https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2">Part 2</a>.</p>
 </section>
 <section id="what-lies-beyond" class="level3">
 <h3 class="anchored" data-anchor-id="what-lies-beyond">5. What lies beyond</h3>
-<p>And that’s it. I hope you will find these tips and resources useful. <a href="link_to_repo">The slides from the presentation and the code I ran during the talk are available on Github.</a></p>
+<p>Finally, I suggested the following two ideas for further learning and improvement of R workflows:</p>
+<ul>
+<li><p>Version control. Duh. You should be using it even if you work alone, because it will help you familiarise yourself with it and provide a history of the changes to your code. If you couple it with an online repository (e.g.&nbsp;<a href="https://github.com">GitHub</a>, <a href="https://about.gitlab.com">GitLab</a>, <a href="https://codeberg.org">Codeberg</a>) it will provide a backup of sorts and, obviously, allow collaborating with others. <a href="https://happygitwithr.com">Happy Git with R</a> remains the best one-stop resource of how to get started with Git and version control through RStudio. <img src="https://imgs.xkcd.com/comics/git.png" class="img-fluid quarto-figure quarto-figure-left" alt="XKCD comic no. 1597 on Git."></p></li>
+<li><p><a href="https://purrr.tidyverse.org">purrr package</a> and its list-column → <code>nest()</code> → <code>map()</code> approach to iteration. I have become a big fan of it and now almost always shape my data to be compatible with this approach. <code>purrr</code> is a collection of functions that standardise the behaviour or base r <code>*apply()</code> family of functions. They work very well in combination with list-columns, when dataframes (and other objects) are “stored” inside cells of other dataframes. For example, here I split the <code>mtcars</code> dataframe into three nested dataframes, one for each cylinder count, and then apply a custom function (a standard error of the displacement) to each of the nested dataframes, putting its output in another column of the main dataframe. Clear as mud? Well, here it goes:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: nest your data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="co"># A list-column with a default name data is created that contains an original data set split by the cyl variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+# Groups:   cyl [3]
+    cyl data              
+  &lt;dbl&gt; &lt;list&gt;            
+1     6 &lt;tibble [7 × 10]&gt; 
+2     4 &lt;tibble [11 × 10]&gt;
+3     8 &lt;tibble [14 × 10]&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: create a function (if needed) to operate on each nested piece of data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A custom function to calculate standard error from the disp column of an input dataframe</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mySE <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(df<span class="sc">$</span>disp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(df<span class="sc">$</span>disp)) <span class="co"># I know this is not optimal but bear with me</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: map this function over each nested piece of data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">disp_se =</span> <span class="fu">map</span>(data, mySE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+# Groups:   cyl [3]
+    cyl data               disp_se  
+  &lt;dbl&gt; &lt;list&gt;             &lt;list&gt;   
+1     6 &lt;tibble [7 × 10]&gt;  &lt;dbl [1]&gt;
+2     4 &lt;tibble [11 × 10]&gt; &lt;dbl [1]&gt;
+3     8 &lt;tibble [14 × 10]&gt; &lt;dbl [1]&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By default the output of map() is a list, but there are variants of map() dedicated to particular types of data:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for example, if the output is numeric, map_dbl will output the result of your function as a number</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">disp_se =</span> <span class="fu">map_dbl</span>(data, mySE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+# Groups:   cyl [3]
+    cyl data               disp_se
+  &lt;dbl&gt; &lt;list&gt;               &lt;dbl&gt;
+1     6 &lt;tibble [7 × 10]&gt;    15.7 
+2     4 &lt;tibble [11 × 10]&gt;    8.10
+3     8 &lt;tibble [14 × 10]&gt;   18.1 </code></pre>
+</div>
+</div>
+<p>Map can <em>map</em> your function over every element of the <code>data</code> list-column. With the same approach, you can make a plot of each of these elements and put each plot within a new list-column, thus keeping your data, calculations and visualisations of your data within a single dataframe-like object. I really like this and would recommend anyone to familiarise themselves with it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A custom plotting function</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>myPlot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The new function is applied over each element of a list-column and output is created in another list-column</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">disp_se =</span> <span class="fu">map_dbl</span>(data, mySE),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">my_plots =</span> <span class="fu">map</span>(data, myPlot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+# Groups:   cyl [3]
+    cyl data               disp_se my_plots
+  &lt;dbl&gt; &lt;list&gt;               &lt;dbl&gt; &lt;list&gt;  
+1     6 &lt;tibble [7 × 10]&gt;    15.7  &lt;gg&gt;    
+2     4 &lt;tibble [11 × 10]&gt;    8.10 &lt;gg&gt;    
+3     8 &lt;tibble [14 × 10]&gt;   18.1  &lt;gg&gt;    </code></pre>
+</div>
+</div>
+</section>
+<section id="good-luck" class="level3">
+<h3 class="anchored" data-anchor-id="good-luck">Good luck</h3>
+<p>And that’s it. I hope you will find these tips and resources useful. <a href="jarekbryk_r_talk_nBUG8_2023-01-12.pdf">The original slides from the presentation are available here as a pdf.</a></p>
 
 
 </section>

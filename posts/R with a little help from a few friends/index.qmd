@@ -1,14 +1,14 @@
 ---
 title: "R, with a little help from a few friends"
 author: "Jarek Bryk"
-date: "2023-06-28"
+date: "2024-08-22"
 categories: [teaching and learning, R, northernBUG]
 editor: source
 ---
 
 ### My presentation at the Northern BUG
 
-In January 2023, I gave a short talk at the 8th meeting of the [Northern Bioinformatics User Group](https://northernbug.github.io/) (nBUG for short), which is an informal network of computational biologists and users or bioinformatics services in the (loosely defined) north of England. If you haven't heard about us and are in range of a reasonable commute, please come to one of our next meetings (we have three one-day, single-track meetings per year), it's really nice :-).
+In January 2023 I gave a short talk at the 8th meeting of the [Northern Bioinformatics User Group](https://northernbug.github.io/) (nBUG for short), an informal network of computational biologists and users or bioinformatics services in the (loosely defined) north of England. If you haven't heard about us and are in range of a reasonable commute, please come to one of our next meetings (we have three one-day, single-track meetings per year), it's really nice :-).
 
 My talk wasn't actually that short, as I ran over time and could not finish it properly. My excuse is that I was juggling a presentation (with slides), a live demo in R Studio *and* sharing my screen over Teams, over a single projector. This makes it a very good reason to write my short presentation as a blog post.
 
@@ -18,9 +18,8 @@ When I thought about the target audience of the talk, I had in mind postgraduate
 
 ![He's not wrong ;-). Photo by Andy Mason.](completely_wrong.jpeg){fig-alt="Photo of the author in front of the presentation slide with a title \"I may be completely wrong\"" fig-align="left"}
 
-Here we go.
 
-### 1. Use projects + here + Rmd/Qmd for everything
+### 1. Use projects + here + Rmd/qmd for everything
 
 This advice is number one for a reason - projects will instantly make your work easier, because they will force you to organise your files into a consistent structure. And if you combine it with [the package `here`](https://here.r-lib.org), you will get extra benefits of making your code simpler and, most importantly, portable. 
 
@@ -28,15 +27,17 @@ I usually set up a self-explanatory three-folder structure within any project: f
 
 ![A consistent project structure will make your life easier](example_project_structure.png){fig-alt="Screenshot of folder structure from the Files panel in R Studio"}
 
-`here()` is a simple function that combines strings into paths. The magic bit is that it does so _relative to the project location_. So you don't have to remember, or type, that your data is located in `/Users/jarek/one_folder/another_folder/folder_hell/my_project_folder/data/my_data.csv`. If you use projects + `here()`, it understands where your project is and creates the path _relative_ to where it is on your hard drive. Like so:
+`here()` is a simple function that combines strings into paths. The magic bit is that it does so _relative to the project location_. So you don't have to remember, or type, that your data is located in `/one_folder/another_folder/folder_hell/my_project_folder/data/my_data.csv`. If you use projects + `here()`, it understands where your project is and creates the path _relative_ to it on your hard drive. Like so:
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(here)
 
-# Calling the function with no arguments returns what here understands as the project folder location
+# Calling the function with no arguments returns what here understands 
+# as the project folder location
 here()
 
-# Calling it with arguments returns path to folders and files relative to the project folder location
+# Calling it with arguments returns path to folders and files relative 
+# to the project folder location
 here("data", "my_data.csv")
 ```
 
@@ -44,14 +45,22 @@ It doesn't matter if you are on a Linux machine and your collaborator on a Windo
 
 #### Short rant about file system
 
-The lack of familiarity with the concepts of a filesystem and directory trees is by far the biggest issue for the students who begin working with R. This is compounded by Microsoft's push to use OneDrive as a main storage space on Windows machines without making it explicit in the user interface. Students tend to download the Rmd/qmd files from our virtual learing environment (VLE) platform and open them directly from the downloads folder. This opens RStudio but confuses `here()`, which shows the downloads folder as the working directory, making all relative links in project files broken. And it is not obvious what is going on, because RStudio by default opens on the last used project, so the interface shows the "correct" project name and the file system viewer in the bottom right panel shows the "corect" project location on the hard drive. The correct behaviour is to move downloaded files to the appropriate place in the project folder (e.g. `code`) and then open the project itself in RStudio, but this is also tricky for the students, who often struggle to answer question "where is your project folder?" and locate it with File Explorer (also, "what is File Explorer?").
+The lack of familiarity with the concepts of a filesystem and directory trees is by far the biggest issue for the students who begin working with R. I blame iOS and smartphones to allow people to remain ignorant about the organisation of a computer system, but this issue is particularly compounded by Microsoft's push to use OneDrive as a main storage space  without making it explicit in the user interface. 
+
+Students tend to download the Rmd/qmd files and open them directly from the downloads folder. This opens RStudio but confuses `here()`, which shows the downloads folder as the project directory, making all relative links broken. Moreover, RStudio by default opens on the last used project, so its interface shows the "correct" project name and the file system viewer in the bottom right panel shows the "correct" project location on the hard drive. 
+
+The downloaded file needs to be moved to the appropriate place in the project folder (e.g. `code`) first, followed by openeing the project itself in RStudio, but this is also tricky for some students, who often struggle to answer the question "where is your project folder?" and locate it with File Explorer (also, "what is File Explorer?"). 
+
+I imagine that the better functionality would be for RStudio to recognise that it is being opened by an "orphan" Rmd/qmd file and ask the user which project does she want it to be opened in (and then _move_ the file to the project folder and open it from there or create a new project at a location specified by the user).
 
 ### 2. Name things well
 
 There is nothing that I can say about naming things that Jenny Bryan and Danielle Navarro haven't already said much better. Check their presentations, pick one of the suggested approaches to naming and _stick to it_. Sticking to it is more important than the exact approach that you choose.
 
 - [Project Structure, a presentation by Danielle Navarro](https://djnavarro.net/slides-project-structure/#1)
-- [Naming, a presentation by Jenny Bryan][https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf]
+- [Naming, a presentation by Jenny Bryan](https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf)
+
+A quick question: can you suggest a better way of naming my project folder in the image in #1 above?
 
 ### 3. Five or six packages that will make your life _much_ easier
 
@@ -61,43 +70,81 @@ Cheating a little, I also wanted to mention several packages with functions that
 
 ![What datapasta does. Excellent name, too.](datapasta.gif){fig-alt="Animated GIF demonstrating what datapasta does" fig-align="left"}
 
-I use it quite often, it's great to create dummy data to test various functions or try to understand what's going on with my code.
+One of my most common uses of it is to create dummy data to test various functions or try to understand what's going on with my code.
 
 -   [janitor](https://sfirke.github.io/janitor/) by Sam Firke. Probably the most popular of the basic data wrangling packages, with its blockbuster function `clean_names()`, which standardises messy column names by substituting spaces, normalising type cases and protecting from having names starting with a number or other forbidden symbol. But it also has a function `get_dupes()` that identifies duplicated rows/variables in the data and a function `tabyl()` that prettifies tables, including adding rows with totals or formatting the tables as inputs to statistical tests such as χ^2^.
 
--   [rstatix](https://rpkgs.datanovia.com/rstatix/) by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (incouding outputting test results as tibbles) and b) it provides function `get_summary_stats()` that calculates basic and not-so-basic descriptive statistics (including operations on groups). Here is an example:
+-   [rstatix](https://rpkgs.datanovia.com/rstatix/) by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (including outputting test results as tibbles) and b) it provides function `get_summary_stats()` that calculates basic and not-so-basic descriptive statistics, also on groupped data. Here is an example:
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(tidyverse)
 library(rstatix)
+library(knitr)
+
+# Is there a difference in displacement volume between engines with different number of cylinders?
+# Note that there are more than two groups of cylinder counts (4, 6 and 8)
 
 mtcars %>% 
-	t_test(disp~cyl)
+	t_test(disp ~ cyl) %>% 
+	kable()
 ```
-If your categorical variable contains more than two groups, `t_test` will automatically perform all pairwise tests.
 
-Here is another:
 
-```{r}
+If your categorical variable contains more than two groups, `t_test` will automatically perform all pairwise tests between them.
+
+```{r warning=FALSE, message=FALSE}
+#  Quick summary statistics of engine displacement volumes calculated on data grouped by cylinder count
 mtcars %>% 
 	group_by(cyl) %>% 
-	get_summary_stats(disp)
+	get_summary_stats(disp) %>% 
+	kable()
 ```
 
-Do check parameter `type =` for options of what descriptive stats you want to include in the output of `get_summary_stats()`.
+Do check parameter `type =` for options of what descriptive statistics you want to include in the output of `get_summary_stats()`.
 
-The only (slight) concern about `rstatix` is its pace of development. Only one issue was patched in the last 1.5 years and at least some of the wrappers do not yet work (I am aware of `chisq_test()` which doesn't yet seem to be pipe-compatible). But other than that, it's great.
+The only (slight) concern about `rstatix` is its pace of development. Only one issue was patched in the last 1.5 years and at least some of the wrappers do not yet work (e.g. `chisq_test()` is not pipe-compatible). But other than that `rstatix` is great.
 
 -   [broom](https://broom.tidymodels.org/index.html) by David Robinson *et al.* is another of the "prettifying" packages, this time for statistical model outputs. Essentially, it turns output from `lm()` (and 100+ other models) into a tidy tabular format. It is also able to add extra columns with residuals and predicted values from the model to the original data. It is now part of the `tidymodels` approach.
 
+```{r warning=FALSE, message=FALSE}
+library(broom)
+
+# Relationship between engine displacement volume and fuel efficiency
+mtcars %>% 
+	ggplot() + aes(x = disp, y = mpg) + 
+	geom_point() + 
+	geom_smooth(method = "lm", se = FALSE) + 
+	theme_minimal()
+
+# Classic output from lm
+model <- lm(mpg ~ disp, data = mtcars)
+
+model
+
+summary(model)
+
+# And here is the same model presented with broom
+model %>% 
+	broom::tidy() %>% 
+	kable()
+
+# And a tidy table with residuals and fitted values (etc.)
+model %>% 
+	broom::augment() %>% 
+	head() %>% 
+	kable()
+```
+
 -   [forcats](https://forcats.tidyverse.org) by Hadley Wickham. It is a part of the `tidyverse` metapackage and is meant to facilitate handling of categorical variables. It is particularly useful for ordering these variables and for grouping them. For example, you can plot only the top three categories in your data (lumping the rest into the "Other" category) with `fct_lump()` and put the values in decreasing order by median of another variable with `fct_reorder()`.
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 diamonds %>% 
 	sample_frac(0.1) %>% 
 	mutate(cut = fct_lump(cut, 3), # Group categories outside of top 3 into "Other"
 				 cut = fct_reorder(cut, price, median, .desc = TRUE)) %>% # Reorder categories of diamond cut by median of their price, in decreasing order
-	ggplot(aes(x = cut, y = price)) + geom_boxplot() + theme_minimal()
+	ggplot(aes(x = cut, y = price)) + 
+	geom_boxplot(outliers = FALSE) + 
+	theme_minimal()
 ```
 
 ### 4. Know your interface
@@ -105,6 +152,7 @@ diamonds %>%
 Spend some time on learning the interface of RStudio and force yourself to use its features until they become second nature. In the simplest case, pick a good colour theme in settings, add coloured lines to indicate tabs (and matching colours for brackets), and a good typeface. Uncheck the default options to save history and environment - and make sure you can reproduce your entire analysis from your Rmd/qmd document.
 
 Then learn the basic keyboard shortcuts (Option-Shift-K shows all shortcuts, for Windows just replace Option with Alt and Command with Windows key):
+
 - insert new chunk (Control-Option-I)
 - insert pipe symbol (Option--)
 - run current line/run current chunk (Control-Enter/Control-Shift-Enter)
@@ -112,12 +160,70 @@ Then learn the basic keyboard shortcuts (Option-Shift-K shows all shortcuts, for
 - move lines of code up/down (Option-↑ or ↓)
 
 Finally, learn to use these:
+
 - multi-line cursors (Control-Option-↑ or ↓)
 - rename-in-scope (Control-Option-Shift-M)
 - multi-file find-and-replace (Shift-Command-F): you need to find stuff first, then toggle Replace switch
 
-Good people at Appsilon have compiled those and many others into a nice gif-torial: RStudio IDE Tips And Tricks - Shortcuts You Must Know [Part 1](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-2) and [Part 2](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
+Good people at Appsilon have compiled these and many others into a nice gif-torial: [RStudio IDE Tips And Tricks - Shortcuts You Must Know Part 1](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-2) and [Part 2](https://www.appsilon.com/post/r-studio-shortcuts-and-tips-part-2).
 
 ### 5. What lies beyond
 
-And that's it. I hope you will find these tips and resources useful. [The slides from the presentation and the code I ran during the talk are available on Github.](link_to_repo)
+Finally, I suggested the following two ideas for further learning and improvement of R workflows:
+
+- Version control. Duh. You should be using it even if you work alone, because it will help you familiarise yourself with it and provide a history of the changes to your code. If you couple it with an online repository (e.g. [GitHub](https://github.com), [GitLab](https://about.gitlab.com), [Codeberg](https://codeberg.org)) it will provide a backup of sorts  and, obviously, allow collaborating with others. [Happy Git with R](https://happygitwithr.com) remains the best one-stop resource of how to get started with Git and version control through RStudio.
+![There is always an excellent XKCD for everything.](https://imgs.xkcd.com/comics/git.png){fig-alt="XKCD comic no. 1597 on Git." fig-align="left"}
+
+- [purrr package](https://purrr.tidyverse.org) and its list-column → `nest()` → `map()` approach to iteration. I have become a big fan of it and now almost always shape my data to be compatible with this approach. `purrr` is a collection of functions that standardise the behaviour or base r `*apply()` family of functions. They work very well in combination with list-columns, when dataframes (and other objects) are "stored" inside cells of other dataframes. For example, here I split the `mtcars` dataframe into three nested dataframes, one for each cylinder count, and then apply a custom function (a standard error of the displacement) to each of the nested dataframes, putting its output in another column of the main dataframe. Clear as mud? Well, here it goes:
+
+```{r warning=FALSE, message=FALSE}
+# Step 1: nest your data
+mtcars %>% 
+	group_by(cyl) %>% 
+	nest() # A list-column with a default name data is created that contains an original data set split by the cyl variable
+```
+
+```{r warning=FALSE, message=FALSE}
+# Step 2: create a function (if needed) to operate on each nested piece of data
+# A custom function to calculate standard error from the disp column of an input dataframe
+mySE <- function(df){
+		sd(df$disp)/sqrt(length(df$disp)) # I know this is not optimal but bear with me
+}
+```
+
+
+```{r warning=FALSE, message=FALSE}
+# Step 3: map this function over each nested piece of data
+mtcars %>% 
+	group_by(cyl) %>% 
+	nest() %>% 
+	mutate(disp_se = map(data, mySE))
+
+# By default the output of map() is a list, but there are variants of map() dedicated to particular types of data:
+# for example, if the output is numeric, map_dbl will output the result of your function as a number
+mtcars %>% 
+	group_by(cyl) %>% 
+	nest() %>% 
+	mutate(disp_se = map_dbl(data, mySE))
+```
+
+Map can _map_ your function over every element of the `data` list-column. With the same approach, you can make a plot of each of these elements and put each plot within a new list-column, thus keeping your data, calculations and visualisations of your data within a single dataframe-like object. I really like this and would recommend anyone to familiarise themselves with it.
+
+```{r warning=FALSE, message=FALSE}
+# A custom plotting function
+myPlot <- function(df){
+	df %>% 
+		ggplot() + aes(x = disp, y = mpg) + geom_point() + geom_smooth(method = "lm", se = FALSE) + theme_minimal()
+}
+
+# The new function is applied over each element of a list-column and output is created in another list-column
+mtcars %>% 
+	group_by(cyl) %>% 
+	nest() %>% 
+	mutate(disp_se = map_dbl(data, mySE),
+				 my_plots = map(data, myPlot))
+```
+
+### Good luck
+
+And that's it. I hope you will find these tips and resources useful. [The original slides from the presentation are available here as a pdf.](jarekbryk_r_talk_nBUG8_2023-01-12.pdf)
