@@ -4,6 +4,7 @@ image: profile.png
 about:
   template: jolla
   image-shape: rectangle
+  image-title: "Pyrrhocorax graculus on a rock; logo by Dr Dean Madden"
   links:
     - icon: mastodon
       text: Mastodon
