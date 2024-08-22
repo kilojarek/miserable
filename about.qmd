@@ -3,6 +3,7 @@ title: "about"
 image: profile.png
 about:
   template: jolla
+  image-shape: rectangle
   links:
     - icon: mastodon
       text: Mastodon
