@@ -3,7 +3,7 @@ title: "Group work and peer-marking system with R: part 1"
 author: "Jarek Bryk"
 date: "2022-10-16"
 categories: [R, code, analysis]
-editor: visual
+editor: source
 ---
 
 ### Some background

@@ -1,14 +1,16 @@
 ---
 title: "Undergraduate group-based data analysis project with R: how we do it"
 author: "Jarek Bryk"
-date: "2022-09-18"
+date: Sys.Date()
 categories: [teaching and learning, R]
-editor: visual
+editor: source
 ---
 
 ### Everybody should learn to use R...
 
-...during their undergraduate degree in life sciences.
+...during their undergraduate degree in life sciences. Biology has become a big data discipline and it is now a matter of fact that students need to have an idea about accessing and analysing large biological datasets programmatically. 
+
+
 
 In our case, the students, who attend the classes in 2 groups, in the first 5-6 week are individually learning the basics of data analysis with R. Then the students are split into 5-6-person teams to complete a group-based project, which is an open-ended analysis of a complex dataset. We only work in a Windows-based environment and we do not use version control.
 
@@ -33,7 +35,7 @@ We have two independent groups of students and each group is split into several 
 | Ability to work well with and support other members of the group                           |
 
 | Peer mark | Guidance                                                                                                                                                                                                       |
-|------------|------------------------------------------------------------|
+|----------------|--------------------------------------------------------|
 | 0         | Student did not contribute at all; was missing most of the time; did not complete assigned tasks; team's results would not change had this person not been a member of the team                                |
 | 1         | Student contributed only minimally; attendance and task completion was low; team's results would change only slightly had this person not been a member of the team                                            |
 | 2         | At least one of the elements (student contributions/attendance/task completion), including the contributions, was adequate                                                                                     |

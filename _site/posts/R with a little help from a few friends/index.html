@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.45">
+<meta name="generator" content="quarto-1.6.10">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b69dee07679cacbf4e9137587ea19a4a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="who-may-find-this-useful" class="level3">
 <h3 class="anchored" data-anchor-id="who-may-find-this-useful">Who may find this useful?</h3>
-<p>When I thought about the target audience of the talk, I had in mind postgraduate students, who had already done some work in R and are familiar with the basics of the language (e.g.&nbsp;various data types, loading and transforming data, working in R Studio), but who may not have thought about how to organise their data and scripts, or be aware of really simple tricks that would make their work much more effective and efficient. I didn’t really know whether this was the right pitch, but a few post-talk comments indicated that it was a good one.</p>
+<p>When I thought about the target audience of the talk, I had in mind postgraduate students, who had already done some work in R and are familiar with the basics of the language (e.g.&nbsp;various data types, loading and transforming data, working in R Studio in general), but who may not have thought about how to organise their data and scripts, or be aware of really simple tricks that would make their work much more effective and efficient. I didn’t really know whether this was the right pitch, but a few post-talk comments indicated that it was a good one.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="completely_wrong.jpeg" class="img-fluid figure-img" alt="Photo of the author in front of the presentation slide with a title &quot;I may be completely wrong&quot;"></p>
@@ -232,13 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "/Users/jarek/Sites/miserable/data/my_data.csv"</code></pre>
 </div>
 </div>
-<p>It doesn’t matter if you are on a Linux machine and your collaborator on a Windows, as long as you use the same project structure and <code>here()</code>, wherever your code would refer to files in the project folder, it will work on both machines with no changes.</p>
+<p>It doesn’t matter if you are on a Linux machine and your collaborator on a Windows, as long as you use the same project name, folder structure and <code>here()</code>, wherever your code would refer to files in the project folder, it will work on both machines with no changes.</p>
 <section id="short-rant-about-file-system" class="level4">
 <h4 class="anchored" data-anchor-id="short-rant-about-file-system">Short rant about file system</h4>
 <p>The lack of familiarity with the concepts of a filesystem and directory trees is by far the biggest issue for the students who begin working with R. I blame iOS and smartphones to allow people to remain ignorant about the organisation of a computer system, but this issue is particularly compounded by Microsoft’s push to use OneDrive as a main storage space without making it explicit in the user interface.</p>
 <p>Students tend to download the Rmd/qmd files and open them directly from the downloads folder. This opens RStudio but confuses <code>here()</code>, which shows the downloads folder as the project directory, making all relative links broken. Moreover, RStudio by default opens on the last used project, so its interface shows the “correct” project name and the file system viewer in the bottom right panel shows the “correct” project location on the hard drive.</p>
-<p>The downloaded file needs to be moved to the appropriate place in the project folder (e.g.&nbsp;<code>code</code>) first, followed by openeing the project itself in RStudio, but this is also tricky for some students, who often struggle to answer the question “where is your project folder?” and locate it with File Explorer (also, “what is File Explorer?”).</p>
-<p>I imagine that the better functionality would be for RStudio to recognise that it is being opened by an “orphan” Rmd/qmd file and ask the user which project does she want it to be opened in (and then <em>move</em> the file to the project folder and open it from there or create a new project at a location specified by the user).</p>
+<p>The downloaded file needs to be moved to the appropriate place in the project folder (e.g.&nbsp;<code>code</code>) first, followed by opening the project itself in RStudio, but this is also tricky for some students, who often struggle to answer the question “where is your project folder?” and locate it with File Explorer (also, “what is File Explorer?”).</p>
 </section>
 </section>
 <section id="name-things-well" class="level3">
@@ -265,6 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One of my most common uses of it is to create dummy data to test various functions or try to understand what’s going on with my code.</p>
 <ul>
 <li><p><a href="https://sfirke.github.io/janitor/">janitor</a> by Sam Firke. Probably the most popular of the basic data wrangling packages, with its blockbuster function <code>clean_names()</code>, which standardises messy column names by substituting spaces, normalising type cases and protecting from having names starting with a number or other forbidden symbol. But it also has a function <code>get_dupes()</code> that identifies duplicated rows/variables in the data and a function <code>tabyl()</code> that prettifies tables, including adding rows with totals or formatting the tables as inputs to statistical tests such as χ<sup>2</sup>.</p></li>
+<li><p><a href="https://github.com/trinker/pacman">pacman</a> by Tyler Rinker. If you are tired of typing many rows of <code>library()</code> calls to load packages, only to discover that you had not actually installed some of them, <code>pacman</code> will make your life simple. You can type, for example, <code>p_load(tidyverse, here, janitor)</code> and <code>pacman</code> will not only load all the packages listed but will get and install those that are missing (there are also functions to install packages from github and/or CRAN).</p></li>
 <li><p><a href="https://rpkgs.datanovia.com/rstatix/">rstatix</a> by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (including outputting test results as tibbles) and b) it provides function <code>get_summary_stats()</code> that calculates basic and not-so-basic descriptive statistics, also on groupped data. Here is an example:</p></li>
 </ul>
 <div class="cell">
