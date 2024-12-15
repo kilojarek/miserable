@@ -73,7 +73,7 @@ One of my most common uses of it is to create dummy data to test various functio
 
 -   [pacman](https://github.com/trinker/pacman) by Tyler Rinker. If you are tired of typing many rows of `library()` calls to load packages, only to discover that you had not actually installed some of them, `pacman` will make your life simple. You can type, for example, `p_load(tidyverse, here, janitor)` and `pacman` will not only load all the packages listed but will get and install those that are missing (there are also functions to install packages from github and/or CRAN).
 
--   [rstatix](https://rpkgs.datanovia.com/rstatix/) by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (including outputting test results as tibbles) and b) it provides function `get_summary_stats()` that calculates basic and not-so-basic descriptive statistics, also on groupped data. Here is an example:
+-   [rstatix](https://rpkgs.datanovia.com/rstatix/) by Alboukadel Kassambara. This package is useful for two main reasons: a) it provides wrappers around base r statistical tests making them compatible with pipe (including outputting test results as tibbles) and b) it provides function `get_summary_stats()` that calculates basic and not-so-basic descriptive statistics, also on grouped data. Here is an example:
 
 ```{r warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -195,14 +195,16 @@ mySE <- function(df){
 mtcars %>% 
 	group_by(cyl) %>% 
 	nest() %>% 
-	mutate(disp_se = map(data, mySE))
+	mutate(disp_se = map(data, mySE)) %>% 
+	kable()
 
 # By default the output of map() is a list, but there are variants of map() dedicated to particular types of data:
 # for example, if the output is numeric, map_dbl will output the result of your function as a number
 mtcars %>% 
 	group_by(cyl) %>% 
 	nest() %>% 
-	mutate(disp_se = map_dbl(data, mySE))
+	mutate(disp_se = map_dbl(data, mySE)) %>% 
+	kable()
 ```
 
 Map can _map_ your function over every element of the `data` list-column. With the same approach, you can make a plot of each of these elements and put each plot within a new list-column, thus keeping your data, calculations and visualisations of your data within a single dataframe-like object. I really like this and would recommend anyone to familiarise themselves with it.
@@ -219,7 +221,8 @@ mtcars %>%
 	group_by(cyl) %>% 
 	nest() %>% 
 	mutate(disp_se = map_dbl(data, mySE),
-				 my_plots = map(data, myPlot))
+				 my_plots = map(data, myPlot)) %>% 
+	kable()
 ```
 
 ### Good luck
